@@ -15,7 +15,7 @@ import CompanyList from '../CompanyList/company-list';
 
 class Company extends Component {
   componentDidMount() {
-    console.log('[company.js] Inside componentDidMount()');
+    // console.log('[company.js] Inside componentDidMount()');
     // console.log(`Company ID: ${JSON.stringify(this.props.match.params.compId)}`);
     // const compID = JSON.stringify(this.props.match.params.compId);
 
@@ -29,31 +29,33 @@ class Company extends Component {
       fetchedCompany, fetchingCompany,
       } = this.props;
 
-    let companyDetails = error ? 
+    let companyDetails = error ?
       <p>Company Details Could Not Be Loaded!</p> :
       <Spinner>Fetching Company Details...</Spinner>;
-      //<h2>Fetching Company Details...</h2>;
 
-    if (!fetchingCompany && fetchedCompany) {
-      companyDetails = ( 
-        <ACompany
-          compId={company._id}
-          name={company.name}
-          address={company.address}
-          revenue={company.revenue}
-          phone={company.phone}
-        />
+    if (!fetchingCompany && fetchedCompany && company) {
+      companyDetails = (
+        <div>
+          <h2>Company Details - {company.name}</h2>
+          {<ACompany
+            compId={company._id}
+            name={company.name}
+            address={company.address}
+            revenue={company.revenue}
+            phone={company.phone}
+          />}
+        </div>
       );
     };
 
-     return (
-       <div>
-         {companyDetails}
-          <Route
-             path={'/'}
-             component={CompanyList} />
-       </div>
-     );
+    return (
+      <div>
+        {companyDetails}
+        <Route
+          path={'/'}
+          component={CompanyList} />
+      </div>
+    );
   };  // end of render
 }; // end of 'Company' Container       
 

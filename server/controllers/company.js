@@ -2,8 +2,6 @@ var mongoose = require('mongoose');
 var Company = mongoose.model('Company');
 
 exports.findAll = function(req, res) {
-	console.log('company.findAll');
-
 	Company.find({}, function(err, results){
 		return res.send(results);
 	});

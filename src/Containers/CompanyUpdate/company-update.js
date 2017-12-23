@@ -146,7 +146,7 @@ class CompanyUpdate extends Component {
             changed={(event) => this.inputChangedHandler(event, formElement.id)} />
         ))}
 
-        <Button btnType="Success" disabled={!formIsValid}>ADD COMPANY</Button>
+        <Button btnType="Success" disabled={!formIsValid}>UPDATE</Button>
         {/* <Button btnType="Success">Update</Button> */}
       </form>
     );

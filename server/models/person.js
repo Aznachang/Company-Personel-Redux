@@ -12,6 +12,8 @@ Schema = mongoose.Schema;
  *         type: string
  *       email:
  *         type: string
+ * 			 companyName:
+ * 			 	 type: string
  */
 var PersonSchema = new Schema({
 	name: String,

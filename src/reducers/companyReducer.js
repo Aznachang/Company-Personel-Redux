@@ -6,10 +6,10 @@ const initialState = {
     revenue: null,
     phone: null
   },
-  // get
+  /**** GET ****/
   fetching: false,
   fetched: false,
-  // post
+  /**** POST ****/
   adding: false,
   added: false,
   error: null,

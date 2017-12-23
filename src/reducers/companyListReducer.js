@@ -32,19 +32,22 @@ const companyListReducer = (state = initialState, action) => {
     }
     /**** ADD A COMPANY ****/
     case "ADD_A_COMPANY": {
-      return Object.assign({}, state, { fetching: true, adding: true });
+      return { ...state, adding: true };
     }
     case "ADD_A_COMPANY_REJECTED": {
-      return Object.assign({}, state, { added: true, adding: false, error: action.payload });
+      return {
+        ...state,
+        fetching: false,
+        error: action.payload
+      };
     }
     case "ADD_A_COMPANY_FULFILLED": {
-      return Object.assign({}, state, {
-        //fetching: false,
-        //fetched: true,
+      return {
+        ...state,
         adding: false,
         added: true,
-        company: action.payload,
-      });
+        company: action.payload
+      };
     }
     default: return state;
   } // end of switch cases

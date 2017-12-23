@@ -13,7 +13,7 @@ import Company from '../../Components/companyList/company/company.js';
 
 class CompanyList extends Component {
   componentDidMount() {
-    console.log('[company-List.js] Inside componentDidMount()');
+    // console.log('[company-List.js] Inside componentDidMount()');
     this.props.fetchCompanyList();
   }
 
@@ -54,7 +54,7 @@ class CompanyList extends Component {
           )}
         </div>
       );
-      console.log('fetchCompList: ' + JSON.stringify(companies));
+      // console.log('fetchCompList: ' + JSON.stringify(companies));
     };
     return (
       <div>
