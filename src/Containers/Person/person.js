@@ -12,7 +12,7 @@ import APerson from '../../Components/employees/person/personComp.js';
 
 class Person extends Component {
   componentDidMount() {
-    console.log('[company.js] Inside componentDidMount()');
+    // console.log('[company.js] Inside componentDidMount()');
     // console.log(`Company ID: ${JSON.stringify(this.props.match.params.compId)}`);
     // const compID = JSON.stringify(this.props.match.params.compId);
 

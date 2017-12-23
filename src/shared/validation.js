@@ -1,3 +1,4 @@
+// Update FormData Objects Immutably
 export const updateObject = (oldObject, updatedProperties) => {
   return {
     ...oldObject,
@@ -5,7 +6,7 @@ export const updateObject = (oldObject, updatedProperties) => {
   };
 };
 
-// rules --> validation's {keys} from 'AddCompany.js' state
+// Form Rules
 export const checkValidity = (value, rules) => {
   // each of the rules.*property* has to be true
   let isValid = true;
@@ -40,8 +41,6 @@ export const checkValidity = (value, rules) => {
     const pattern = /^\d+$/;
     isValid = pattern.test(value) && isValid
   }
-  // console.log(`value: ${value}`);
-  // console.log(`pattern test: ${pattern.test(value)}`);
 
   return isValid;
 }
