@@ -105,7 +105,7 @@ class AddCompany extends Component {
     event.preventDefault();
 
     const { companyForm } = this.state;
-    const { onAddCompany, addedCompany, addingCompany } = this.props;
+    const { onAddCompany } = this.props;
     const formData = {};
 
     // formProperty -> companyForm: 'name', 'address', etc.
@@ -115,14 +115,17 @@ class AddCompany extends Component {
     }
 
     onAddCompany(formData);
-    if (addedCompany && !addingCompany) {
-      {<Redirect to= {`/`} />}
-    }
   }
 
   render() {
     const { companyForm, formIsValid } = this.state;
+    const { addedCompany, addingCompany } = this.props;
     const formElementsArray = [];
+    let redirect = null;
+
+    if (addedCompany && !addingCompany) {
+      redirect = <Redirect to={`/`} />;
+    }
 
     for (let key in companyForm) {
       formElementsArray.push({
@@ -151,6 +154,7 @@ class AddCompany extends Component {
 
     return (
       <div className={classes.CompanyData}>
+        {redirect}
         <div className="panel panel-default">
           <div className="panel-heading">
             <h3 className="panel-title"><b>New Company Form</b></h3>
