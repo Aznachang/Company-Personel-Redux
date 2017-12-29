@@ -80,7 +80,7 @@ export function fetchPerson(id) {
     console.log(`fetchPerson - personId: ${id}`);
     axios.get(`/person/${id}`)
       .then((res) => {
-        console.log(`fetchAPerson: ${JSON.stringify(res.data)}`);
+        // console.log(`fetchAPerson: ${JSON.stringify(res.data)}`);
         dispatch({ type: "FETCH_PERSON_FULFILLED", payload: res.data })
       })
       .catch((err) => {
@@ -95,7 +95,7 @@ export function updatePerson(id, compId, compName, person) {
       ...person,
       "_id": `${id}`, "companyName": `${compName}`, "companyId": `${compId}`
     };
-    console.log(`updatePerson - finalPerson: ${JSON.stringify(finalPerson)}`);
+    // console.log(`updatePerson - finalPerson: ${JSON.stringify(finalPerson)}`);
 
     dispatch({ type: "UPDATE_PERSON" });
     // axios.put(url,{body},{headers})

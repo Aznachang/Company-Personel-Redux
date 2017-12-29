@@ -30,7 +30,7 @@ const employeesReducer = (state = initialState, action) => {
       };
     }
     case "DELETE_AN_EMPLOYEE": {
-      return { ...state, fetching: true };
+      return { ...state, fetching: true, fetched: false };
     }
     case "DELETE_AN_EMPLOYEE_FULFILLED": {
       const employees = [...state.employees];
