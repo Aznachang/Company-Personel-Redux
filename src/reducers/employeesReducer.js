@@ -33,10 +33,22 @@ const employeesReducer = (state = initialState, action) => {
       return { ...state, fetching: true, fetched: false };
     }
     case "DELETE_AN_EMPLOYEE_FULFILLED": {
+      const employees = [...state.employees];
+      let len = employees.length;
+
+      for (let i=0; i<len; i++) {
+        let curr = employees[i]._id;
+        if (curr === action.payload) {
+          employees.splice(i, 1);
+          break;
+        }
+      }
+
       return {
         ...state,
         fetching: false,
-        fetched: true
+        fetched: true,
+        employees: employees 
       };
     }
     case "DELETE_AN_EMPLOYEE_REJECTED": {

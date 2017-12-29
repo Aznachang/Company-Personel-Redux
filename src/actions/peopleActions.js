@@ -21,24 +21,13 @@ export function onAddEmployee(employee, id) {
 // 'person/:id'
 export function deletePerson(id) {
   return (dispatch) => {
-    console.log(`Delete Employee - ID:${id}`);
+    // console.log(`Delete Employee - ID:${id}`);
     
     dispatch({ type: "DELETE_AN_EMPLOYEE" });
     axios.delete(`/person/${id}`)
       .then((res) => {
-        console.log(`deleted Person: ${JSON.stringify(res.data)}`);
-        dispatch({ type: "DELETE_AN_EMPLOYEE_FULFILLED", payload: res.data })
-      })
-      // FETCH EMPLOYEES
-      .then(() => {
-        dispatch({ type: "FETCH_EMPLOYEES" });
-        axios.get("/companies/${id}/people")
-          .then((res) => {
-            dispatch({ type: "FETCH_EMPLOYEES_FULFILLED", payload: res.data })
-          })
-          .catch((err) => {
-            dispatch({ type: "FETCH_EMPLOYEES_REJECTED", payload: err })
-          })
+        // console.log(`deleted Person: ${JSON.stringify(res.data)}`);  // NOTHING - ""
+        dispatch({ type: "DELETE_AN_EMPLOYEE_FULFILLED", payload: id })
       })
       .catch((err) => {
         dispatch({ type: "DELETE_AN_EMPLOYEE_REJECTED", payload: err })

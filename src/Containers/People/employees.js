@@ -14,7 +14,7 @@ import Person from '../../Components/employees/person/personComp.js';
 
 class Employees extends Component {
   componentDidMount() {
-    console.log('[employees.js] Inside componentDidMount()');
+    // console.log('[employees.js] Inside componentDidMount()');
     const compID = this.props.match.params.compId;
     this.props.fetchEmployees(compID);
   }
@@ -52,7 +52,7 @@ class Employees extends Component {
           )}
         </div>
       );
-      console.log('fetchEmployees: ' + JSON.stringify(employees));
+      // console.log('fetchEmployees: ' + JSON.stringify(employees));
     };
     return (
       <div>

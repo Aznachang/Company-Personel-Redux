@@ -37,7 +37,7 @@ const companyListReducer = (state = initialState, action) => {
     case "ADD_A_COMPANY_REJECTED": {
       return {
         ...state,
-        fetching: false,
+        adding: false,
         error: action.payload
       };
     }
@@ -46,7 +46,7 @@ const companyListReducer = (state = initialState, action) => {
         ...state,
         adding: false,
         added: true,
-        company: [...state.companies, action.payload]
+        companies: [...state.companies, action.payload]
       };
     }
     default: return state;
