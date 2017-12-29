@@ -46,7 +46,7 @@ const companyListReducer = (state = initialState, action) => {
         ...state,
         adding: false,
         added: true,
-        company: action.payload
+        company: [...state.companies, action.payload]
       };
     }
     default: return state;

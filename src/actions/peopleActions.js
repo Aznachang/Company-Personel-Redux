@@ -5,23 +5,12 @@ export function onAddEmployee(employee, id) {
     // console.log(`Added Employee: ${JSON.stringify(employee)}`);
 
     let finalEmployee = { ...employee, "companyId": `${id}` };
-    console.log(`Added Final Employee:${JSON.stringify(finalEmployee)}`);
+    // console.log(`Added Final Employee:${JSON.stringify(finalEmployee)}`);
 
     dispatch({ type: "ADD_AN_EMPLOYEE" });
     axios.post("/person", finalEmployee)
       .then((res) => {
         dispatch({ type: "ADD_AN_EMPLOYEE_FULFILLED", payload: res.data })
-      })
-      // FETCH EMPLOYEES
-      .then(() => {
-        dispatch({ type: "FETCH_EMPLOYEES" });
-        axios.get("/companies/${id}/people")
-          .then((res) => {
-            dispatch({ type: "FETCH_EMPLOYEES_FULFILLED", payload: res.data })
-          })
-          .catch((err) => {
-            dispatch({ type: "FETCH_EMPLOYEES_REJECTED", payload: err })
-          })
       })
       .catch((err) => {
         dispatch({ type: "ADD_AN_EMPLOYEE_REJECTED", payload: err })
@@ -102,7 +91,7 @@ export function fetchPerson(id) {
     console.log(`fetchPerson - personId: ${id}`);
     axios.get(`/person/${id}`)
       .then((res) => {
-        console.log(`fetchAPerson: ${JSON.stringify(res.data)}`);
+        // console.log(`fetchAPerson: ${JSON.stringify(res.data)}`);
         dispatch({ type: "FETCH_PERSON_FULFILLED", payload: res.data })
       })
       .catch((err) => {
@@ -117,7 +106,7 @@ export function updatePerson(id, compId, compName, person) {
       ...person,
       "_id": `${id}`, "companyName": `${compName}`, "companyId": `${compId}`
     };
-    console.log(`updatePerson - finalPerson: ${JSON.stringify(finalPerson)}`);
+    // console.log(`updatePerson - finalPerson: ${JSON.stringify(finalPerson)}`);
 
     dispatch({ type: "UPDATE_PERSON" });
     // axios.put(url,{body},{headers})
