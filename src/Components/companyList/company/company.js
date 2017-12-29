@@ -10,7 +10,7 @@ const company = props => (
           <b>{props.name}</b>
         </Link>
         <Link className="pull-right" to={`/companies/${props.compId}/edit`}>
-          <span className="edit"><b>edit</b></span>
+          <span className={classes.edit}><b>edit</b></span>
         </Link>
       </h3>
     </div>

@@ -1,3 +1,7 @@
 a:hover .delete {
   color:red;
 }
+
+.edit {
+  text-decoration: none;
+}

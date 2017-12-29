@@ -79,39 +79,39 @@ class AddCompany extends Component {
     formIsValid: false
   }
 
-  inputChangedHandler = (event, inputIdentity) => {
-    const { companyForm, formIsValid } = this.state;
+  inputChangedHandler = (e, inputField) => {
+    const { companyForm } = this.state;
 
     /** Updated Form **/
-    const updatedFormElement = updateObject(companyForm[inputIdentity], {
-      value: event.target.value,
-      valid: checkValidity(event.target.value, companyForm[inputIdentity].validation),
+    const updatedFormElement = updateObject(companyForm[inputField], {
+      value: e.target.value,
+      valid: checkValidity(e.target.value, companyForm[inputField].validation),
       touched: true
     });
     // create copy of orig Form data, keep track of user-input
     const updatedCompanyForm = updateObject(companyForm, {
-      [inputIdentity]: updatedFormElement
+      [inputField]: updatedFormElement
     });
 
     let FormIsValid = true;
-    for (let inputIdentity in updatedCompanyForm) {
-      FormIsValid = updatedCompanyForm[inputIdentity].valid && FormIsValid;
+    for (let inputField in updatedCompanyForm) {
+      FormIsValid = updatedCompanyForm[inputField].valid && FormIsValid;
     }
 
     this.setState({ companyForm: updatedCompanyForm, formIsValid: FormIsValid });
   }
 
-  addCompanyHandler = (event) => {
-    event.preventDefault();
+  addCompanyHandler = (e) => {
+    e.preventDefault();
 
     const { companyForm } = this.state;
     const { onAddCompany } = this.props;
     const formData = {};
 
-    // formProperty -> companyForm: 'name', 'address', etc.
-    for (let formProperty in companyForm) {
-      let userInputVal = companyForm[formProperty].value;
-      formData[formProperty] = userInputVal;
+    // property -> companyForm: 'name', 'address', etc.
+    for (let property in companyForm) {
+      let userInputVal = companyForm[property].value;
+      formData[property] = userInputVal;
     }
 
     onAddCompany(formData);
@@ -135,7 +135,7 @@ class AddCompany extends Component {
     }
 
     let form = (
-      <form onSubmit={this.addCompanyHandler}>
+      <form onSubmit={e => this.addCompanyHandler(e)}>
         {formElementsArray.map(formElement => (
           <Input
             key={formElement.id}
@@ -146,7 +146,7 @@ class AddCompany extends Component {
             invalid={!formElement.config.valid}
             shouldValidate={formElement.config.validation}
             touched={formElement.config.touched}
-            changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+            changed={e => this.inputChangedHandler(e, formElement.id)} />
         ))}
         <Button btnType="Success" disabled={!formIsValid}>ADD COMPANY</Button>
       </form>

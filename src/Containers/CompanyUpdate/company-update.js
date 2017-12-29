@@ -76,13 +76,13 @@ class CompanyUpdate extends Component {
     formIsValid: false,
   }
 
-  inputChangedHandler = (event, inputIdentity) => {
-    const { updatedCompanyForm, formIsValid } = this.state;
+  inputChangedHandler = (e, inputIdentity) => {
+    const { updatedCompanyForm } = this.state;
 
     /** Updated Form **/
     const updatedFormElement = updateObject(updatedCompanyForm[inputIdentity], {
-      value: event.target.value,
-      valid: checkValidity(event.target.value, updatedCompanyForm[inputIdentity].validation),
+      value: e.target.value,
+      valid: checkValidity(e.target.value, updatedCompanyForm[inputIdentity].validation),
       touched: true
     });
     // create copy of orig Form data, keep track of user-input
@@ -99,8 +99,8 @@ class CompanyUpdate extends Component {
   }
 
   // triggered upon User clicking on 'Update' Button
-  updateCompanyHandler = (event) => {
-    event.preventDefault();
+  updateCompanyHandler = (e) => {
+    e.preventDefault();
 
     const { updatedCompanyForm } = this.state;
     const { updateCompany } = this.props;
@@ -132,7 +132,7 @@ class CompanyUpdate extends Component {
     }
 
     let form = (
-      <form onSubmit={this.updateCompanyHandler}>
+      <form onSubmit={e => this.updateCompanyHandler(e)}>
         {formElementsArray.map(formElement => (
           <Input
             key={formElement.id}
@@ -143,7 +143,7 @@ class CompanyUpdate extends Component {
             invalid={!formElement.config.valid}
             shouldValidate={formElement.config.validation}
             touched={formElement.config.touched}
-            changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+            changed={(e) => this.inputChangedHandler(e, formElement.id)} />
         ))}
 
         <Button btnType="Success" disabled={!formIsValid}>UPDATE</Button>

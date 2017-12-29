@@ -57,13 +57,13 @@ class PersonUpdate extends Component {
     fetchPerson(id);
   }
 
-  inputChangedHandler = (event, inputIdentity) => {
-    const { updatedPersonForm, formIsValid } = this.state;
+  inputChangedHandler = (e, inputIdentity) => {
+    const { updatedPersonForm } = this.state;
 
     /** Updated Form **/
     const updatedFormElement = updateObject(updatedPersonForm[inputIdentity], {
-      value: event.target.value,
-      valid: checkValidity(event.target.value, updatedPersonForm[inputIdentity].validation),
+      value: e.target.value,
+      valid: checkValidity(e.target.value, updatedPersonForm[inputIdentity].validation),
       touched: true
     });
     // create copy of orig Form data, keep track of user-input
@@ -80,8 +80,8 @@ class PersonUpdate extends Component {
   }
 
   // triggered upon User clicking on 'Update' Button
-  updatePersonHandler = (event) => {
-    event.preventDefault();
+  updatePersonHandler = (e) => {
+    e.preventDefault();
 
     const { updatedPersonForm } = this.state;
     const { person, updatePerson } = this.props;
@@ -113,7 +113,7 @@ class PersonUpdate extends Component {
     }
 
     let form = (
-      <form onSubmit={this.updatePersonHandler}>
+      <form onSubmit={e=>this.updatePersonHandler(e)}>
         {formElementsArray.map(formElement => (
           <Input
             key={formElement.id}
@@ -124,7 +124,7 @@ class PersonUpdate extends Component {
             invalid={!formElement.config.valid}
             shouldValidate={formElement.config.validation}
             touched={formElement.config.touched}
-            changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+            changed={(e) => this.inputChangedHandler(e, formElement.id)} />
         ))}
 
         <Button btnType="Success" disabled={!formIsValid}>UPDATE</Button>

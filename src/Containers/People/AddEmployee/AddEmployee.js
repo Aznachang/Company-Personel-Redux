@@ -61,74 +61,73 @@ class AddEmployee extends Component {
         valid: true
       }
     },  // end of employeeForm
+    companyID: '',
     formIsValid: false
   }
 
   componentDidMount() {
-    // const { companyNames } = this.state;
-    // let companiesFound = this.props.fetchCompanyList();
-    // console.log(`companiesFound: ${JSON.stringify(companiesFound)}`)
     this.props.fetchCompanyList();
   }
 
-  inputChangedHandler = (event, inputIdentity) => {
-    const { employeeForm, formIsValid } = this.state;
+  inputChangedHandler = (e, inputField) => {
+    const { employeeForm } = this.state;
 
     /** Updated Form **/
-    const updatedFormElement = updateObject(employeeForm[inputIdentity], {
-      value: event.target.value,
-      valid: checkValidity(event.target.value, employeeForm[inputIdentity].validation),
+    const updatedFormElement = updateObject(employeeForm[inputField], {
+      value: e.target.value,
+      valid: checkValidity(e.target.value, employeeForm[inputField].validation),
       touched: true
     });
     const updatedEmployeeForm = updateObject(employeeForm, {
-      [inputIdentity]: updatedFormElement
+      [inputField]: updatedFormElement
     });
 
     let FormIsValid = true;
-    for (let inputIdentity in updatedEmployeeForm) {
-      FormIsValid = updatedEmployeeForm[inputIdentity].valid && FormIsValid;
+    for (let inputField in updatedEmployeeForm) {
+      FormIsValid = updatedEmployeeForm[inputField].valid && FormIsValid;
     }
 
     this.setState({ employeeForm: updatedEmployeeForm, formIsValid: FormIsValid });
   }
 
-  addEmployeeHandler = (event) => {
-    event.preventDefault();
+  addEmployeeHandler = (e) => {
+    e.preventDefault();
 
     const { employeeForm } = this.state;
-    const { onAddEmployee, companies, 
-      addingEmployee, addedEmployee } = this.props;
+    const { onAddEmployee, companies } = this.props;
 
     let id; // companyId
     const formData = {};
 
-    // formProperty -> employeeForm: 'name', 'address', etc.
-    for (let formProperty in employeeForm) {
-      let userInputVal = employeeForm[formProperty].value;
-      formData[formProperty] = userInputVal;
+    // property -> employeeForm: 'name', 'address', etc.
+    for (let property in employeeForm) {
+      let userInputVal = employeeForm[property].value;
+      formData[property] = userInputVal;
     }
 
-    // console.log(`Employee Form Data: ${JSON.stringify(formData)}`);
-    // console.log(`Companies: ${JSON.stringify(companies)}`);
-    //debugger;
+    /** loop thru fetchedCompanies **/
     for (let obj in companies) {
       let company = companies[obj];
-      console.log(`company: ${JSON.stringify(company)}`);
+      // assign 'companyId' from matching 'companyName'
       if (company.name === formData.companyName) {
         console.log(`company Chosen: ${JSON.stringify(company)}`);
         id = company._id;
         break;
       }
     }
+    this.setState({ companyID: id });
     onAddEmployee(formData, id);
-    if (addedEmployee && !addingEmployee) {
-      {<Redirect to= {`/companies/${id}/people`} />}
-    }
   }
 
   render() {
-    const { employeeForm, formIsValid } = this.state;
+    const { employeeForm, formIsValid, companyID } = this.state;
+    const { addingEmployee, addedEmployee } = this.props;
     const formElementsArray = [];
+
+    let redirect = null;
+    if (addedEmployee && !addingEmployee) {
+      redirect = <Redirect to={`/companies/${companyID}/people`} />;
+    }
 
     for (let key in employeeForm) {
       formElementsArray.push({
@@ -138,7 +137,7 @@ class AddEmployee extends Component {
     }
 
     let form = (
-      <form onSubmit={this.addEmployeeHandler}>
+      <form onSubmit={e => this.addEmployeeHandler(e)}>
         {formElementsArray.map(formElement => (
           <Input
             key={formElement.id}
@@ -149,7 +148,7 @@ class AddEmployee extends Component {
             invalid={!formElement.config.valid}
             shouldValidate={formElement.config.validation}
             touched={formElement.config.touched}
-            changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+            changed={e => this.inputChangedHandler(e, formElement.id)} />
         ))}
         <Button btnType="Success" disabled={!formIsValid}>ADD EMPLOYEE</Button>
       </form>
@@ -157,6 +156,7 @@ class AddEmployee extends Component {
 
     return (
       <div className={classes.EmployeeData}>
+        {redirect}
         <div className="panel panel-default">
           <div className="panel-heading">
             <h3 className="panel-title"><b>New Employee Form</b></h3>
@@ -176,7 +176,7 @@ const mapStateToProps = state => {
     error: state.companyList.error,
     fetchedCompanies: state.companyList.fetched,
     fetchingCompanies: state.companyList.fetching,
-    addedEmployee: state.employees.added, 
+    addedEmployee: state.employees.added,
     addingEmployee: state.adding
   };
 }
