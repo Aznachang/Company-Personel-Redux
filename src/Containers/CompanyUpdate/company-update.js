@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 /** ACTIONS **/
 import { fetchACompany, updateCompany, fetchCompanyList } from '../../actions/companyActions.js';
@@ -76,13 +77,13 @@ class CompanyUpdate extends Component {
     formIsValid: false,
   }
 
-  inputChangedHandler = (event, inputIdentity) => {
-    const { updatedCompanyForm, formIsValid } = this.state;
+  inputChangedHandler = (e, inputIdentity) => {
+    const { updatedCompanyForm } = this.state;
 
     /** Updated Form **/
     const updatedFormElement = updateObject(updatedCompanyForm[inputIdentity], {
-      value: event.target.value,
-      valid: checkValidity(event.target.value, updatedCompanyForm[inputIdentity].validation),
+      value: e.target.value,
+      valid: checkValidity(e.target.value, updatedCompanyForm[inputIdentity].validation),
       touched: true
     });
     // create copy of orig Form data, keep track of user-input
@@ -99,8 +100,8 @@ class CompanyUpdate extends Component {
   }
 
   // triggered upon User clicking on 'Update' Button
-  updateCompanyHandler = (event) => {
-    event.preventDefault();
+  updateCompanyHandler = (e) => {
+    e.preventDefault();
 
     const { updatedCompanyForm } = this.state;
     const { updateCompany } = this.props;
@@ -121,8 +122,16 @@ class CompanyUpdate extends Component {
 
   render() {
     const { updatedCompanyForm, formIsValid } = this.state;
-
+    const { updatingCompany, updatedCompany, match } = this.props;
     const formElementsArray = [];
+
+    let redirect = null;
+    let id = match.params.compId;
+    console.log(`company-update - compID: ${id}`);
+
+    if (updatedCompany && !updatingCompany) {
+      redirect = <Redirect to={`/companies/${id}`} />;
+    }
 
     for (let key in updatedCompanyForm) {
       formElementsArray.push({
@@ -132,7 +141,7 @@ class CompanyUpdate extends Component {
     }
 
     let form = (
-      <form onSubmit={this.updateCompanyHandler}>
+      <form onSubmit={e => this.updateCompanyHandler(e)}>
         {formElementsArray.map(formElement => (
           <Input
             key={formElement.id}
@@ -143,7 +152,7 @@ class CompanyUpdate extends Component {
             invalid={!formElement.config.valid}
             shouldValidate={formElement.config.validation}
             touched={formElement.config.touched}
-            changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+            changed={(e) => this.inputChangedHandler(e, formElement.id)} />
         ))}
 
         <Button btnType="Success" disabled={!formIsValid}>UPDATE</Button>
@@ -153,6 +162,7 @@ class CompanyUpdate extends Component {
 
     return (
       <div className={classes.UpdatedCompanyData}>
+        {redirect}
         <div className="panel panel-default">
           <div className="panel-heading">
             <h3 className="panel-title"><b>Update Company Form</b></h3>
@@ -167,14 +177,15 @@ class CompanyUpdate extends Component {
 
 const mapStateToProps = state => {
   return {
+    /** Company - UPDATE **/
+    updatingCompany: state.companyDetail.updating,
+    updatedCompany: state.companyDetail.updated,
+
+    /** Company **/
     company: state.companyDetail.company,
     fetchedCompany: state.companyDetail.fetched,
     fetchingCompany: state.companyDetail.fetching,
-    errorCompany: state.companyDetail.error,
-    companies: state.companyList.company,
-    fetchedCompanies: state.companyList.fetched,
-    fetchingCompanies: state.companyList.fetching,
-    errorCompanies: state.companyList.error
+    errorCompany: state.companyDetail.error
   };
 }
 

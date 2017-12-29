@@ -63,10 +63,10 @@ export function updateCompany(id, company) {
     // axios.put(url,{body},{headers})
     axios.put(`/companies/${id}`, company)
       .then((res) => {
-        dispatch({ type: "FETCH_COMPANY_FULFILLED", payload: res.data })
+        dispatch({ type: "UPDATE_COMPANY_FULFILLED", payload: res.data })
       })
       .catch((err) => {
-        dispatch({ type: "FETCH_COMPANY_REJECTED", payload: err })
+        dispatch({ type: "UPDATE_COMPANY_REJECTED", payload: err })
       })
   }
 }
