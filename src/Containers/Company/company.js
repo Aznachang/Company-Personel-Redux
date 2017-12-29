@@ -15,9 +15,6 @@ import CompanyList from '../CompanyList/company-list';
 
 class Company extends Component {
   componentDidMount() {
-    // console.log('[company.js] Inside componentDidMount()');
-    // console.log(`Company ID: ${JSON.stringify(this.props.match.params.compId)}`);
-    // const compID = JSON.stringify(this.props.match.params.compId);
 
     const compID = this.props.match.params.compId;
     this.props.fetchACompany(compID);

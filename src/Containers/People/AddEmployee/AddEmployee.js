@@ -172,12 +172,14 @@ const mapStateToProps = state => {
   // check index.js for 'reducer' Definitions
   // state.reducer.state_property
   return {
+    /** COMPANIES **/
     companies: state.companyList.companies,
     error: state.companyList.error,
     fetchedCompanies: state.companyList.fetched,
     fetchingCompanies: state.companyList.fetching,
+    /** EMPLOYEE **/
     addedEmployee: state.employees.added,
-    addingEmployee: state.adding
+    addingEmployee: state.employees.adding
   };
 }
 

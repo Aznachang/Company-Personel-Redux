@@ -6,7 +6,7 @@ const company = props => (
   <div className="panel panel-default">
     <div className="panel-heading">
       <h3 className="panel-title">
-        <Link className="pull-center" to={`/companies/${props.compId}`}>
+        <Link className="pull-center" to={`/companies/${props.compId}/`}>
           <b>{props.name}</b>
         </Link>
         <Link className="pull-right" to={`/companies/${props.compId}/edit`}>
