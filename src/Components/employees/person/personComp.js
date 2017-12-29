@@ -10,7 +10,7 @@ const person = props => (
           <b>{props.name}</b>
         </Link>
         <Link className="pull-left" to={`/person/${props.personId}/edit`}>
-          <span class="edit"><b>edit</b></span>
+          <span className="edit"><b>edit</b></span>
         </Link>
         <Link onClick={props.delete} className="pull-right" to={`/companies/${props.companyId}/people`}>
           <span className="{classes.delete}" delete><b>x</b></span>

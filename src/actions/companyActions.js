@@ -3,7 +3,6 @@ import axios from "axios";
 export function fetchCompanyList() {
   return (dispatch) => {
     dispatch({ type: "FETCH_COMPANIES" });
-    // console.log('Dispatch-Fetch_Companies: before axios');
     axios.get("/companies")
       .then((res) => {
         dispatch({ type: "FETCH_COMPANIES_FULFILLED", payload: res.data })
@@ -59,7 +58,7 @@ export function fetchACompany(id) {
 // STILL NEED TO FIGURE OUT LOGIC
 export function updateCompany(id, company) {
   return (dispatch) => {
-    console.log(`**** action-updateCompanyROUTE: /companies/${id}/edit`);
+    // console.log(`**** action-updateCompanyROUTE: /companies/${id}/edit`);
     dispatch({ type: "UPDATE_COMPANY" });
     // axios.put(url,{body},{headers})
     axios.put(`/companies/${id}`, company)
@@ -79,17 +78,6 @@ export function onAddCompany(company) {
     axios.post("/companies", company)
       .then((res) => {
         dispatch({ type: "ADD_A_COMPANY_FULFILLED", payload: res.data })
-      })
-      // call fetch_Companies again
-      .then(() => {
-        dispatch({ type: "FETCH_COMPANIES" });
-        axios.get("/companies")
-          .then((res) => {
-            dispatch({ type: "FETCH_COMPANIES_FULFILLED", payload: res.data })
-          })
-          .catch((err) => {
-            dispatch({ type: "FETCH_COMPANIES_REJECTED", payload: err })
-          })
       })
       .catch((err) => {
         dispatch({ type: "ADD_A_COMPANY_REJECTED", payload: err })
