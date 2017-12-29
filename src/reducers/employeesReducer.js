@@ -30,7 +30,7 @@ const employeesReducer = (state = initialState, action) => {
       };
     }
     case "DELETE_AN_EMPLOYEE": {
-      return { ...state, fetching: true };
+      return { ...state, fetching: true, fetched: false };
     }
     case "DELETE_AN_EMPLOYEE_FULFILLED": {
       return {
@@ -54,13 +54,13 @@ const employeesReducer = (state = initialState, action) => {
         ...state,
         adding: false,
         added: true,
-        employees: action.payload
+        employees: [...state.employees, action.payload]
       };
     }
     case "ADD_AN_EMPLOYEE_REJECTED": {
       return {
         ...state,
-        fetching: false,
+        adding: false,
         error: action.payload
       };
     }
