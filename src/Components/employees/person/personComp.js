@@ -18,10 +18,10 @@ const person = props => (
       </h3>
     </div>
     <div className="panel-body">
-      <p><b>Name</b></p>
+      <p className="text-bold">Name</p>
       <p>{props.name}</p>
-      <p><b>Email</b></p>
-      <p>{props.email}</p>
+      <p>Email</p>
+      <p className="text-bold">{props.email}</p>
     </div>
     <div className="panel-footer">
       <Link to={`/`}>
