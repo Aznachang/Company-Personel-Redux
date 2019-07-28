@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 Schema = mongoose.Schema;
 /**
@@ -15,7 +15,7 @@ Schema = mongoose.Schema;
  * 			 companyName:
  * 			 	 type: string
  */
-var PersonSchema = new Schema({
+const PersonSchema = new Schema({
 	name: String,
 	companyId: String,
 	email: String,

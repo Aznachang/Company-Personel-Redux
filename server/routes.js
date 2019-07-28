@@ -1,7 +1,7 @@
 module.exports = function(app){
 
-    var company = require('./controllers/company.js');
-    var person = require('./controllers/person.js');
+    const company = require('./controllers/company.js');
+    const person = require('./controllers/person.js');
 
     /**
      * @swagger

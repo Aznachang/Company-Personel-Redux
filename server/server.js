@@ -11,7 +11,7 @@ const mongoUri = 'mongodb://localhost/companies';
 mongoose.connect(mongoUri);
 
 const db = mongoose.connection;
-db.on('error', ()=> {
+db.on('error', () => {
 	throw new Error('unabled to connect to database at ' + mongoUri);
 });
 

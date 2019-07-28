@@ -1,8 +1,6 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 Schema = mongoose.Schema;
-
-
 
 /**
  * @swagger
@@ -18,7 +16,7 @@ Schema = mongoose.Schema;
  *       phone:
  *         type: string
  */
-var CompanySchema = new Schema({
+const CompanySchema = new Schema({
 	name: String,
 	address: String,
 	revenue: Number,
